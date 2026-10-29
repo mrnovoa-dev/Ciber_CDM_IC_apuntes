@@ -406,7 +406,7 @@ function unitSection(u){var s=el('section');s.id=u.id;s.style.setProperty('--udc
  return s;}
 
 function tarId(u,t){return 'tar-'+u.id+'-'+t.n.replace('.','-');}
-function detalleUnit(u){var B=(D.detalle||{})[u.id];if(!B)return null;if(D.role!=='profe'&&u.id!=='ud1')return null;
+function detalleUnit(u){var B=(D.detalle||{})[u.id];if(!B)return null;if(D.role!=='profe'&&D.publicadas&&D.publicadas.indexOf(u.id)<0)return null;
  var s=el('section','det');s.id='det-'+u.id;s.style.setProperty('--udc',u.color);
  var body=B.map(function(b,i){var m=b.h.match(/actividad (\d+)\.(\d+)/);var sid=m?('fuentes-'+m[1]+'-'+m[2]):('det-'+u.id+'-'+(i+1));return '<h3 id="'+sid+'">'+b.h+'</h3>'+b.html;}).join('');
  var prac='';var PR=(D.prac||{})[u.id];
