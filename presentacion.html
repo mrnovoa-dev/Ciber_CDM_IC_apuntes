@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equipos rojo, azul y purple · SOC, BTL1, CVE y CVSS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{ --w:1920px; --h:1080px; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; background:#0b1017; color:#e8edf3; font-family:'IBM Plex Sans',Arial,sans-serif; }
+  header.top{ padding:18px 20px; display:flex; flex-wrap:wrap; gap:6px 14px; align-items:baseline;
+    border-bottom:1px solid #223; position:sticky; top:0; background:#0b1017; z-index:5; }
+  header.top h1{ font-size:19px; font-weight:600; margin:0; }
+  header.top p{ margin:0; font-size:13px; color:#8ea0b5; }
+  .deck{ max-width:1120px; margin:0 auto; padding:22px 16px 60px; }
+  .slide{ width:100%; aspect-ratio:16/9; margin:0 auto 22px; border-radius:10px; overflow:hidden;
+    box-shadow:0 2px 14px rgba(0,0,0,.45); position:relative; background:#000; }
+  .slide .scale{ width:var(--w); height:var(--h); transform-origin:top left; position:absolute; top:0; left:0; }
+  .slide section{ width:var(--w) !important; height:var(--h) !important; position:relative; overflow:hidden; }
+  .counter{ position:absolute; right:12px; bottom:10px; font-size:12px; color:#8ea0b5;
+    background:rgba(11,16,23,.6); padding:2px 8px; border-radius:20px; z-index:3; }
+  footer{ text-align:center; color:#64748b; font-size:12px; padding:0 16px 40px; }
+</style>
+</head><body>
+<header class="top">
+  <h1>Equipos rojo, azul y purple · SOC, BTL1, CVE y CVSS</h1>
+  <p>MP5021 · Incidentes de Ciberseguridade — presentación de clase</p>
+</header>
+<main class="deck" id="deck">
+<div class="slide"><div class="scale"><section id="cover" data-transition="fade" style="background:#0f1b2d;color:#f4f6fb;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#5bc8af">MP5021 · Incidentes de Ciberseguridade</p>
+<h1 style="font-size:104px;font-weight:700;line-height:1.05;max-width:1500px">Rojo, azul y purple: detectar antes de responder</h1>
+<p style="font-size:40px;font-weight:400;color:#bcc6d6;max-width:1320px;line-height:1.3">Equipos de ataque y defensa, el SOC, la certificación BTL1, el ciclo de la vulnerabilidad (CVE y CVSS) y la detección defensiva de amenazas.</p>
+<p style="position:absolute;left:128px;bottom:72px;font-size:24px;color:#7c8aa3">Curso de especialización en Ciberseguridad · IES Chan do Monte</p>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="mapa" data-transition="fade" style="background:#fbfbf8;color:#14213d;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:48px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">De la ofensiva a la defensa</h2>
+<p style="font-size:34px;color:#4a5568;max-width:1500px;line-height:1.35">El curso de hacking ético prepara certificaciones ofensivas. Nuestro módulo está al otro lado: ver el ataque, entenderlo y gestionarlo. Esta es la cadena de ideas de la sesión.</p>
+<div style="display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;background:#fdecea;border:1px solid #e8b4ad;border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:14px">
+<p style="font-size:26px;font-weight:600;color:#b23a2e">OFENSIVA</p>
+<h3 style="font-size:34px;font-weight:600">Rojo y pentest</h3>
+<p style="font-size:26px;color:#4a5568;line-height:1.35">Atacan para probar defensas. eJPT, eCPPT.</p>
+</div>
+<div style="flex:1;background:#e9f3fb;border:1px solid #a9cde8;border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:14px">
+<p style="font-size:26px;font-weight:600;color:#2d6ca3">DEFENSIVA</p>
+<h3 style="font-size:34px;font-weight:600">Azul y SOC</h3>
+<p style="font-size:26px;color:#4a5568;line-height:1.35">Detectan y responden. BTL1. Nuestro módulo.</p>
+</div>
+<div style="flex:1;background:#eaf4ef;border:1px solid #a9d4bf;border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:14px">
+<p style="font-size:26px;font-weight:600;color:#2f8460">COMÚN</p>
+<h3 style="font-size:34px;font-weight:600">CVE y CVSS</h3>
+<p style="font-size:26px;color:#4a5568;line-height:1.35">El lenguaje de las vulnerabilidades, lo usan los dos.</p>
+</div>
+</div>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="red-blue" data-transition="fade" style="background:#fbfbf8;color:#14213d;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">Pentest no es red team</h2>
+<table style="font-family:'IBM Plex Sans', Arial, sans-serif;font-size:28px;color:#14213d">
+<tr style="background:#eef1f6">
+<th style="width:22%;text-align:left;font-weight:600;font-size:26px">&nbsp;</th>
+<th style="width:39%;text-align:left;font-weight:600;font-size:26px">Pentest</th>
+<th style="width:39%;text-align:left;font-weight:600;font-size:26px">Red team</th>
+</tr>
+<tr>
+<td style="font-weight:600">Objetivo</td>
+<td>Encontrar el máximo de fallos</td>
+<td>Alcanzar una meta concreta (ej. las nóminas)</td>
+</tr>
+<tr style="background:#f4f6f9">
+<td style="font-weight:600">Estilo</td>
+<td>Alcance acotado, con aviso al equipo de TI</td>
+<td>Sigiloso, como un atacante real</td>
+</tr>
+<tr>
+<td style="font-weight:600">Medios</td>
+<td>Explotación técnica</td>
+<td>Phishing, físico, ingeniería social y técnica</td>
+</tr>
+<tr style="background:#f4f6f9">
+<td style="font-weight:600">Qué mide</td>
+<td>Cuántas vulnerabilidades hay</td>
+<td>Si el azul detecta y responde</td>
+</tr>
+</table>
+<p style="font-size:30px;color:#4a5568;line-height:1.35;max-width:1500px">El <b>equipo azul</b> es la defensa: SOC, respuesta a incidentes, bastionado. El <b>purple team</b> es el trabajo conjunto: el rojo ejecuta una técnica y el azul ajusta la detección hasta verla.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#6a7179">eJPT y eCPPT son de pentesting, el escalón previo al red team.</p>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="purple" data-transition="fade" style="background:#1a1430;color:#f4f2fb;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:48px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#b89cf0">Purple team</p>
+<h2 style="font-size:76px;font-weight:700;line-height:1.1;max-width:1450px">Cada ataque termina en una regla de detección</h2>
+<div style="display:flex;gap:24px;align-items:center">
+<div style="flex:1;background:#2a2048;border:1px solid #51407e;border-radius:16px;padding:34px;text-align:center">
+<p style="font-size:30px;font-weight:600;color:#ff8a7a">1 · Rojo ataca</p>
+</div>
+<p style="font-size:44px;color:#b89cf0">→</p>
+<div style="flex:1;background:#2a2048;border:1px solid #51407e;border-radius:16px;padding:34px;text-align:center">
+<p style="font-size:30px;font-weight:600;color:#8ec9ff">2 · Azul observa</p>
+</div>
+<p style="font-size:44px;color:#b89cf0">→</p>
+<div style="flex:1;background:#2a2048;border:1px solid #51407e;border-radius:16px;padding:34px;text-align:center">
+<p style="font-size:30px;font-weight:600;color:#9be6c4">3 · Escribe la regla</p>
+</div>
+<p style="font-size:44px;color:#b89cf0">→</p>
+<div style="flex:1;background:#2a2048;border:1px solid #51407e;border-radius:16px;padding:34px;text-align:center">
+<p style="font-size:30px;font-weight:600;color:#e4d6ff">4 · Mapea a ATT&amp;CK</p>
+</div>
+</div>
+<p style="font-size:32px;color:#c9c0e4;line-height:1.35;max-width:1500px">Es el método de la práctica de aula: lo que hoy pasa inadvertido, mañana salta una alerta.</p>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="soc" data-transition="fade" style="background:#fbfbf8;color:#14213d;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:44px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">El SOC: vigilancia 24/7 por niveles</h2>
+<div style="display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;background:#ffffff;border:1px solid #e3e6e4;border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:16px">
+<p style="font-size:26px;font-weight:600;color:#2d6ca3">Nivel 1</p>
+<h3 style="font-size:36px;font-weight:600">Triaje</h3>
+<p style="font-size:27px;color:#4a5568;line-height:1.35">Revisa alertas del SIEM, descarta falsos positivos, clasifica y escala. Puesto de entrada.</p>
+</div>
+<div style="flex:1;background:#ffffff;border:1px solid #e3e6e4;border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:16px">
+<p style="font-size:26px;font-weight:600;color:#2d6ca3">Nivel 2</p>
+<h3 style="font-size:36px;font-weight:600">Investigación</h3>
+<p style="font-size:27px;color:#4a5568;line-height:1.35">Analiza a fondo lo escalado, determina el alcance y propone la contención.</p>
+</div>
+<div style="flex:1;background:#ffffff;border:1px solid #e3e6e4;border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:16px">
+<p style="font-size:26px;font-weight:600;color:#2d6ca3">Nivel 3</p>
+<h3 style="font-size:36px;font-weight:600">Caza y experto</h3>
+<p style="font-size:27px;color:#4a5568;line-height:1.35">Threat hunting, reglas de detección, análisis de malware y forense.</p>
+</div>
+</div>
+<div style="background:#eef4f9;border-radius:16px;padding:32px 40px">
+<p style="font-size:29px;color:#14213d;line-height:1.35"><b>Se mide en tiempo:</b> MTTD (tiempo medio hasta detectar) y MTTR (tiempo medio hasta responder). Cuanto más bajos, mejor defensa.</p>
+</div>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="btl1" data-transition="fade" style="background:#e9f3fb;color:#14213d;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:44px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#2d6ca3">Certificación azul de entrada</p>
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">BTL1 — Blue Team Level 1</h2>
+<div style="display:flex;gap:40px;align-items:flex-start">
+<div style="flex:1;display:flex;flex-direction:column;gap:22px">
+<div style="background:#ffffff;border:1px solid #c5dcef;border-radius:14px;padding:28px 34px">
+<p style="font-size:28px;color:#4a5568;line-height:1.35">Examen <b>práctico de 24 h</b>, a libro abierto, 20 tareas, aprobado al 70 %. No es un test: investigas un incidente real.</p>
+</div>
+<div style="background:#ffffff;border:1px solid #c5dcef;border-radius:14px;padding:28px 34px">
+<p style="font-size:28px;color:#4a5568;line-height:1.35">Proveedor <b>Security Blue Team</b>, ahora Centri desde junio de 2026. Mismo nombre y temario. Unas 399 £ el pack.</p>
+</div>
+</div>
+<div style="flex:1;background:#14213d;border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:18px">
+<p style="font-size:26px;font-weight:600;color:#8ec9ff;text-transform:uppercase;letter-spacing:1px">Seis dominios</p>
+<p style="font-size:29px;color:#dce6f3;line-height:1.5">Fundamentos de seguridad · Análisis de phishing · Inteligencia de amenazas · Forense digital · SIEM · Respuesta a incidentes</p>
+</div>
+</div>
+<p style="font-size:30px;color:#2d6ca3;font-weight:600;line-height:1.35;max-width:1550px">Encaja casi 1:1 con MP5021. Para quien quiera ir al SOC, mejor recomendación que eJPT.</p>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="cve" data-transition="fade" style="background:#fbfbf8;color:#14213d;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:44px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">CVE: el catálogo de vulnerabilidades</h2>
+<p style="font-size:34px;color:#4a5568;max-width:1550px;line-height:1.35">Un identificador único por cada vulnerabilidad conocida. Todo el mundo habla de la misma cosa: el aviso del fabricante, el escáner, el parche y el informe del incidente.</p>
+<div style="background:#14213d;border-radius:16px;padding:40px 48px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'JetBrains Mono', monospace;font-size:52px;font-weight:600;color:#9be6c4">CVE-2021-44228</p>
+<p style="font-size:27px;color:#bcc6d6;line-height:1.35">Formato CVE-año-número · este es Log4Shell · año de asignación y número de serie</p>
+</div>
+<div style="display:flex;gap:28px">
+<div style="flex:1;background:#ffffff;border:1px solid #e3e6e4;border-radius:16px;padding:34px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600">Quién lo asigna</h3>
+<p style="font-size:26px;color:#4a5568;line-height:1.35">Lo coordina MITRE; los asignan las CNA (fabricantes, CERT). INCIBE es CNA en España.</p>
+</div>
+<div style="flex:1;background:#ffffff;border:1px solid #e3e6e4;border-radius:16px;padding:34px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600">Dónde se amplía</h3>
+<p style="font-size:26px;color:#4a5568;line-height:1.35">El NVD del NIST añade la puntuación CVSS, los productos afectados y las referencias.</p>
+</div>
+</div>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="cvss" data-transition="fade" style="background:#fbfbf8;color:#14213d;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">CVSS: cuánta gravedad, de 0 a 10</h2>
+<div style="display:flex;gap:40px;align-items:flex-start">
+<table style="font-family:'IBM Plex Sans', Arial, sans-serif;font-size:29px;color:#14213d;width:46%">
+<tr style="background:#eef1f6"><th style="width:50%;text-align:left;font-weight:600;font-size:27px">Nota</th><th style="width:50%;text-align:left;font-weight:600;font-size:27px">Gravedad</th></tr>
+<tr><td>0</td><td>Ninguna</td></tr>
+<tr style="background:#f4f6f9"><td>0,1 – 3,9</td><td>Baja</td></tr>
+<tr><td>4,0 – 6,9</td><td>Media</td></tr>
+<tr style="background:#fbeee7"><td>7,0 – 8,9</td><td>Alta</td></tr>
+<tr style="background:#fde3df"><td>9,0 – 10</td><td>Crítica</td></tr>
+</table>
+<div style="width:54%;display:flex;flex-direction:column;gap:20px">
+<div style="background:#14213d;border-radius:14px;padding:30px 34px">
+<p style="font-family:'JetBrains Mono', monospace;font-size:27px;color:#9be6c4;line-height:1.5;word-break:break-all">CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H</p>
+<p style="font-size:30px;font-weight:600;color:#ff9a8a;margin-top:0">= 9,8 · crítica</p>
+</div>
+<p style="font-size:27px;color:#4a5568;line-height:1.4">Explotable por red (AV:N), fácil (AC:L), sin credenciales (PR:N) ni interacción (UI:N), con impacto total en confidencialidad, integridad y disponibilidad.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#6a7179">Clave: CVSS mide gravedad, no riesgo. Para priorizar parches se suma EPSS (probabilidad de explotación) y el catálogo KEV de CISA.</p>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="deteccion-flujo" data-transition="fade" style="background:#0f2a24;color:#f0f8f5;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:44px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#5bc8af">El núcleo del módulo</p>
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">Detección defensiva: de la telemetría a la alerta</h2>
+<div style="display:flex;gap:22px;align-items:stretch">
+<div style="flex:1;background:#163a32;border:1px solid #2f6356;border-radius:16px;padding:34px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#9be6c4">1 · Telemetría</h3>
+<p style="font-size:25px;color:#c5ded6;line-height:1.35">Logs de sistema (eventos Windows, Sysmon, Linux), red, correo y endpoint.</p>
+</div>
+<div style="flex:1;background:#163a32;border:1px solid #2f6356;border-radius:16px;padding:34px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#9be6c4">2 · Centralizar</h3>
+<p style="font-size:25px;color:#c5ded6;line-height:1.35">El SIEM (Wazuh, Splunk, Elastic) normaliza y correla eventos.</p>
+</div>
+<div style="flex:1;background:#163a32;border:1px solid #2f6356;border-radius:16px;padding:34px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#9be6c4">3 · Alertar</h3>
+<p style="font-size:25px;color:#c5ded6;line-height:1.35">Las reglas disparan la alerta y el analista la investiga.</p>
+</div>
+</div>
+<div style="background:#163a32;border-radius:16px;padding:32px 40px">
+<p style="font-size:29px;color:#eaf6f2;line-height:1.4"><b>Ejemplo:</b> 50 fallos de login seguidos de un acceso correcto desde la misma IP = alerta de fuerza bruta con éxito. Sin logs, nada de esto existe.</p>
+</div>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="deteccion-tecnicas" data-transition="fade" style="background:#fbfbf8;color:#14213d;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">Cuatro formas de detectar</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+<div style="background:#ffffff;border:1px solid #e3e6e4;border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:34px;font-weight:600;color:#2f8460">Por firmas</h3>
+<p style="font-size:27px;color:#4a5568;line-height:1.35">IDS/IPS (Suricata, Snort) y reglas YARA. Detectan lo <b>conocido</b>.</p>
+</div>
+<div style="background:#ffffff;border:1px solid #e3e6e4;border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:34px;font-weight:600;color:#2f8460">Por comportamiento</h3>
+<p style="font-size:27px;color:#4a5568;line-height:1.35">Reglas Sigma, genéricas y portables. "Word lanza PowerShell".</p>
+</div>
+<div style="background:#ffffff;border:1px solid #e3e6e4;border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:34px;font-weight:600;color:#2f8460">Por anomalías</h3>
+<p style="font-size:27px;color:#4a5568;line-height:1.35">Desviaciones de lo normal: conexión a las 3:00, pico de datos. Aquí entra la IA defensiva.</p>
+</div>
+<div style="background:#ffffff;border:1px solid #e3e6e4;border-radius:16px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:34px;font-weight:600;color:#2f8460">Threat hunting</h3>
+<p style="font-size:27px;color:#4a5568;line-height:1.35">Búsqueda proactiva por hipótesis, sin esperar a que salte la alerta.</p>
+</div>
+</div>
+<p style="font-size:29px;color:#4a5568;line-height:1.35;max-width:1550px"><b>IOC vs IOA:</b> el indicador de compromiso prueba que ya pasó algo; el indicador de ataque avisa de que está pasando.</p>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="marcos" data-transition="fade" style="background:#fbfbf8;color:#14213d;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">Marcos que ordenan la defensa</h2>
+<div style="display:flex;gap:28px;align-items:stretch">
+<div style="flex:1;background:#eef4f9;border-radius:16px;padding:38px;display:flex;flex-direction:column;gap:14px">
+<h3 style="font-size:34px;font-weight:600;color:#2d6ca3">MITRE ATT&amp;CK</h3>
+<p style="font-size:26px;color:#4a5568;line-height:1.4">Matriz de tácticas y técnicas del atacante. Etiquetas cada detección y ves qué no cubres.</p>
+</div>
+<div style="flex:1;background:#eef4f9;border-radius:16px;padding:38px;display:flex;flex-direction:column;gap:14px">
+<h3 style="font-size:34px;font-weight:600;color:#2d6ca3">Cyber Kill Chain</h3>
+<p style="font-size:26px;color:#4a5568;line-height:1.4">Las fases de un ataque. Cuanto antes lo cortes, menor el daño.</p>
+</div>
+<div style="flex:1;background:#eef4f9;border-radius:16px;padding:38px;display:flex;flex-direction:column;gap:14px">
+<h3 style="font-size:34px;font-weight:600;color:#2d6ca3">Pirámide del Dolor</h3>
+<p style="font-size:26px;color:#4a5568;line-height:1.4">Cambiar una IP es fácil; cambiar un comportamiento (TTP) duele. Detecta TTP.</p>
+</div>
+</div>
+<div style="background:#14213d;border-radius:16px;padding:34px 42px">
+<p style="font-size:29px;color:#dce6f3;line-height:1.4"><b style="color:#9be6c4">Inteligencia de amenazas:</b> plataformas como MISP y los feeds de INCIBE-CERT y CCN-CERT alimentan el SIEM con IOC actuales.</p>
+</div>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="aula" data-transition="fade" style="background:#1a1430;color:#f4f2fb;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-size:28px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#b89cf0">Práctica de aula</p>
+<h2 style="font-size:74px;font-weight:700;line-height:1.1;max-width:1500px">Un ejercicio purple con Wazuh</h2>
+<p style="font-size:34px;color:#c9c0e4;line-height:1.4;max-width:1550px">En el laboratorio aislado labcyber, el rojo lanza tres ataques y el azul los caza:</p>
+<div style="display:flex;flex-direction:column;gap:18px;max-width:1500px">
+<div style="background:#2a2048;border:1px solid #51407e;border-radius:14px;padding:26px 34px"><p style="font-size:29px;color:#eae2ff;line-height:1.3"><b style="color:#9be6c4">1.</b> Fuerza bruta SSH &nbsp;→&nbsp; regla + T1110</p></div>
+<div style="background:#2a2048;border:1px solid #51407e;border-radius:14px;padding:26px 34px"><p style="font-size:29px;color:#eae2ff;line-height:1.3"><b style="color:#9be6c4">2.</b> Macro de Office que lanza PowerShell &nbsp;→&nbsp; regla + T1566.001 y T1059.001</p></div>
+<div style="background:#2a2048;border:1px solid #51407e;border-radius:14px;padding:26px 34px"><p style="font-size:29px;color:#eae2ff;line-height:1.3"><b style="color:#9be6c4">3.</b> Persistencia con tarea programada &nbsp;→&nbsp; regla + T1053.005</p></div>
+</div>
+<p style="font-size:30px;color:#b89cf0;line-height:1.35;max-width:1550px">Se cierra documentando el incidente con su CVE y CVSS si aplica, y notificando al CERT.</p>
+
+</section></div></div>
+<div class="slide"><div class="scale"><section id="cierre" data-transition="fade" style="background:#0f1b2d;color:#f4f6fb;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<h2 style="font-size:76px;font-weight:700;line-height:1.1;max-width:1500px">Lo que hay que llevarse</h2>
+<div style="display:flex;flex-direction:column;gap:22px;max-width:1550px">
+<p style="font-size:36px;color:#dce6f3;line-height:1.35"><b style="color:#5bc8af">1.</b> El rojo ataca; nuestro trabajo es detectar y responder.</p>
+<p style="font-size:36px;color:#dce6f3;line-height:1.35"><b style="color:#5bc8af">2.</b> Sin telemetría no hay detección: todo empieza en los logs.</p>
+<p style="font-size:36px;color:#dce6f3;line-height:1.35"><b style="color:#5bc8af">3.</b> CVE nombra la vulnerabilidad; CVSS mide su gravedad, no el riesgo.</p>
+<p style="font-size:36px;color:#dce6f3;line-height:1.35"><b style="color:#5bc8af">4.</b> Detectar comportamientos (TTP) vale más que listas de IP.</p>
+<p style="font-size:36px;color:#dce6f3;line-height:1.35"><b style="color:#5bc8af">5.</b> Para seguir por el lado azul: BTL1.</p>
+</div>
+<p style="position:absolute;left:128px;bottom:72px;font-size:26px;color:#7c8aa3">MP5021 · Incidentes de Ciberseguridade</p>
+
+</section></div></div>
+</main>
+<footer>Diapositivas 16:9. Para proyectar a pantalla completa, usa el modo pantalla completa del navegador.</footer>
+<script>
+  // Escala cada diapositiva 1920x1080 al ancho real de su contenedor.
+  function fit(){
+    document.querySelectorAll('.slide').forEach(function(sl,i){
+      var s=sl.querySelector('.scale'); if(!s) return;
+      var k=sl.clientWidth/1920; s.style.transform='scale('+k+')';
+      if(!sl.querySelector('.counter')){
+        var c=document.createElement('div'); c.className='counter';
+        c.textContent=(i+1)+' / '+document.querySelectorAll('.slide').length; sl.appendChild(c);
+      }
+    });
+  }
+  window.addEventListener('resize',fit); window.addEventListener('load',fit); fit();
+</script>
+</body></html>
